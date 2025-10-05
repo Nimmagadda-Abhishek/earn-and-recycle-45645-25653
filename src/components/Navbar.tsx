@@ -28,7 +28,7 @@ export const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
             <Leaf className="w-6 h-6" />
-            <span className="text-gradient">EcoCollect</span>
+            <span className="text-gradient">zanika</span>
           </Link>
 
           {/* Desktop Navigation */}
