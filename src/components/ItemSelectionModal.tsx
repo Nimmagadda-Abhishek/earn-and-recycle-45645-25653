@@ -240,13 +240,14 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
                     {pickUpDate ? format(pickUpDate, "PPP") : "Pick a date"}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
+                <PopoverContent className="w-auto p-0 max-w-[90vw] sm:max-w-none" side="bottom" sideOffset={4} align="start" collisionPadding={8}>
                   <Calendar
                     mode="single"
                     selected={pickUpDate}
                     onSelect={setPickUpDate}
                     disabled={(date) => date < new Date()}
                     initialFocus
+                    className="scale-90 sm:scale-100"
                   />
                 </PopoverContent>
               </Popover>
