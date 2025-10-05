@@ -92,7 +92,7 @@ export default function Landing() {
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose EcoCollect?</h2>
+            <h2 className="text-4xl font-bold mb-4">Why Choose Zanika?</h2>
             <p className="text-xl text-muted-foreground">Making recycling rewarding and convenient</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
@@ -149,10 +149,10 @@ export default function Landing() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <Leaf className="w-6 h-6 text-primary" />
-              <span className="font-bold text-xl text-gradient">EcoCollect</span>
+              <span className="font-bold text-xl text-gradient">Zanika</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              © 2025 EcoCollect. Making the world greener, one pickup at a time.
+              © 2025 Zanika. Making the world greener, one pickup at a time.
             </p>
           </div>
         </div>

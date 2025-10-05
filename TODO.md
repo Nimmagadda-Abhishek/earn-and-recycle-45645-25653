@@ -1,0 +1,2 @@
+- [x] Replace "EcoCollect" with "Zanika" in index.html
+- [x] Replace "EcoCollect" with "Zanika" in src/pages/Landing.tsx
