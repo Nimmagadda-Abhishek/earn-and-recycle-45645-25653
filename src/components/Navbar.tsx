@@ -27,8 +27,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <Leaf className="w-6 h-6" />
-            <span className="text-gradient">zanika</span>
+            <img src="/z final logo temp.png" alt="Zanika Logo" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
