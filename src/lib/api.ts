@@ -1,4 +1,4 @@
-const BASE_URL = 'https://zovoaapi.lytortech.com';
+const BASE_URL = 'https://217b1681cd94.ngrok-free.app';
 
 // API response types
 export interface AuthResponse {
@@ -51,12 +51,13 @@ export const authApi = {
   }): Promise<AuthResponse> => {
     const response = await fetch(`${BASE_URL}/api/auth/signup`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Signup failed');
+      const text = await response.text();
+      console.error('Signup failed response:', text);
+      throw new Error('Signup failed');
     }
     return response.json();
   },
@@ -64,12 +65,13 @@ export const authApi = {
   login: async (data: { email: string; password: string }): Promise<AuthResponse> => {
     const response = await fetch(`${BASE_URL}/api/auth/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
+      const text = await response.text();
+      console.error('Login failed response:', text);
+      throw new Error('Login failed');
     }
     return response.json();
   },
@@ -78,8 +80,14 @@ export const authApi = {
 // Save Items APIs
 export const saveItemsApi = {
   getAll: async (): Promise<SaveItem[]> => {
-    const response = await fetch(`${BASE_URL}/api/save-items`);
-    if (!response.ok) throw new Error('Failed to fetch items');
+    const response = await fetch(`${BASE_URL}/api/save-items`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' },
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Fetching save items failed response:', text);
+      throw new Error('Failed to fetch items');
+    }
     return response.json();
   },
 };
@@ -89,25 +97,34 @@ export const ordersApi = {
   place: async (order: Omit<Order, 'id'>): Promise<{ message: string }> => {
     const response = await fetch(`${BASE_URL}/api/orders/place`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
       body: JSON.stringify(order),
     });
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to place order');
+      const text = await response.text();
+      console.error('Place order failed response:', text);
+      throw new Error('Failed to place order');
     }
     return response.json();
   },
 
   getUserOrders: async (userId: string): Promise<Order[]> => {
     const response = await fetch(`${BASE_URL}/api/orders/user/${userId}`);
-    if (!response.ok) throw new Error('Failed to fetch orders');
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Fetching user orders failed response:', text);
+      throw new Error('Failed to fetch orders');
+    }
     return response.json();
   },
 
   getUserOrdersByStatus: async (userId: string, status: string): Promise<Order[]> => {
     const response = await fetch(`${BASE_URL}/api/orders/user/${userId}/status/${status}`);
-    if (!response.ok) throw new Error('Failed to fetch orders');
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Fetching user orders by status failed response:', text);
+      throw new Error('Failed to fetch orders');
+    }
     return response.json();
   },
 };
@@ -115,8 +132,26 @@ export const ordersApi = {
 // Account APIs
 export const accountsApi = {
   getByUid: async (uid: string): Promise<Account> => {
-    const response = await fetch(`${BASE_URL}/api/accounts/uid/${uid}`);
-    if (!response.ok) throw new Error('Failed to fetch account');
-    return response.json();
+    const response = await fetch(`${BASE_URL}/api/accounts/uid/${uid}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' },
+    });
+    const text = await response.text();
+    console.log('Response status:', response.status);
+    console.log('Response text:', text);
+    if (!response.ok) {
+      console.error('Failed to fetch account response:', text);
+      throw new Error('Failed to fetch account');
+    }
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      console.error('Response is not JSON:', text);
+      throw new Error('Failed to parse account data: Response is not JSON');
+    }
+    try {
+      return JSON.parse(text);
+    } catch (error) {
+      console.error('JSON parse error:', error, 'Text:', text);
+      throw new Error('Failed to parse account data');
+    }
   },
 };
