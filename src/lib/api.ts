@@ -1,4 +1,4 @@
-const BASE_URL = 'https://217b1681cd94.ngrok-free.app';
+const BASE_URL = 'https://zovoaapi.lytortech.com';
 
 // API response types
 export interface AuthResponse {
