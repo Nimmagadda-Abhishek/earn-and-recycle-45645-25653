@@ -35,7 +35,7 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [pickUpDate, setPickUpDate] = useState<Date>();
-  const [dropDate, setDropDate] = useState<Date>();
+  // const [dropDate, setDropDate] = useState<Date>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -51,9 +51,10 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
       setWeight(1);
       setLocation('');
       setPickUpDate(undefined);
-      setDropDate(undefined);
+      // setDropDate(undefined);
     }
   }, [open]);
+
 
   if (!item) return null;
 
@@ -77,7 +78,7 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
            phone.length === 10 && 
            email.includes('@') && 
            pickUpDate && 
-           dropDate &&
+           // dropDate &&
            weight >= 0.5;
   };
 
@@ -95,7 +96,7 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
         number: phone,
         mail: email,
         pickUpDate: format(pickUpDate!, 'yyyy-MM-dd'),
-        dropDate: format(dropDate!, 'yyyy-MM-dd'),
+        // dropDate: format(dropDate!, 'yyyy-MM-dd'),
       });
       onClose();
     } catch (error) {
@@ -253,7 +254,7 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
               </Popover>
             </div>
 
-            <div>
+            {/* <div>
               <Label>Drop Date *</Label>
               <Popover>
                 <PopoverTrigger asChild>
@@ -278,7 +279,7 @@ export function ItemSelectionModal({ item, open, onClose, onPlaceOrder, userAcco
                   />
                 </PopoverContent>
               </Popover>
-            </div>
+            </div> */}
           </div>
 
           {/* Submit Button */}

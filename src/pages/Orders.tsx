@@ -26,6 +26,7 @@ export default function Orders() {
       const data = await ordersApi.getUserOrders(user!.userId);
       setOrders(data.sort((a, b) => new Date(b.pickUpDate).getTime() - new Date(a.pickUpDate).getTime()));
     } catch (error) {
+      console.error('Error fetching orders:', error);
       toast({
         title: 'Failed to load orders',
         description: 'Please try again later.',

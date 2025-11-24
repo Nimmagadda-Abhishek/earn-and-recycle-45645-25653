@@ -1,4 +1,4 @@
-const BASE_URL = 'https://217b1681cd94.ngrok-free.app';
+const BASE_URL = 'http://zovoaapi.lytortech.com';
 
 // API response types
 export interface AuthResponse {
@@ -41,6 +41,16 @@ export interface Account {
   phone: string;
 }
 
+interface UserRewardsResponse {
+  userId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  message: string;
+  user_points: number;
+  user_money: number;
+}
+
 // Auth APIs
 export const authApi = {
   signup: async (data: {
@@ -72,6 +82,18 @@ export const authApi = {
       const text = await response.text();
       console.error('Login failed response:', text);
       throw new Error('Login failed');
+    }
+    return response.json();
+  },
+
+  getUserRewards: async (userId: string): Promise<UserRewardsResponse> => {
+    const response = await fetch(`${BASE_URL}/api/auth/user/${userId}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' },
+    });
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('Fetching user rewards failed response:', text);
+      throw new Error('Failed to fetch user rewards');
     }
     return response.json();
   },
@@ -109,13 +131,19 @@ export const ordersApi = {
   },
 
   getUserOrders: async (userId: string): Promise<Order[]> => {
-    const response = await fetch(`${BASE_URL}/api/orders/user/${userId}`);
+    console.log('Fetching orders for user:', userId);
+    const response = await fetch(`${BASE_URL}/api/orders/user/${userId}`, {
+      headers: { 'ngrok-skip-browser-warning': 'true' },
+    });
+    console.log('Response status for orders:', response.status);
     if (!response.ok) {
       const text = await response.text();
       console.error('Fetching user orders failed response:', text);
       throw new Error('Failed to fetch orders');
     }
-    return response.json();
+    const data = await response.json();
+    console.log(`Fetched ${data.length} orders for user ${userId}`);
+    return data;
   },
 
   getUserOrdersByStatus: async (userId: string, status: string): Promise<Order[]> => {
