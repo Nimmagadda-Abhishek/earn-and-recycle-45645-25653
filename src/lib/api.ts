@@ -1,4 +1,4 @@
-const BASE_URL = 'http://zovoaapi.lytortech.com';
+const BASE_URL = 'https://zovoaapi.lytortech.com';
 
 // API response types
 export interface AuthResponse {
